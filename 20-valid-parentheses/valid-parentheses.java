@@ -10,28 +10,18 @@ class Solution {
                 if(st.isEmpty()){
                     return false;
                 }
-                int top=st.pop();
-                if(ch==')'){
-                    if(top!='('){
-                        return false;
-                    }
+                if(
+                    (ch==')' && st.peek()=='(')||
+                    (ch==']' && st.peek()=='[')||
+                    (ch=='}' && st.peek()=='{')
+                ){
+                    st.pop();
                 }
-                if(ch==']'){
-                    if(top!='['){
-                        return false;
-                    }
-                }
-                if(ch=='}'){
-                    if(top!='{'){
-                        return false;
-                    }
-                }
+                else{
+                    return false;
+                }    
             }
-        }
-        if(st.isEmpty()){
-            return true;
-        }
-        return false;
-    }
-    
+        } 
+         return st.isEmpty();         
+    }  
 }
