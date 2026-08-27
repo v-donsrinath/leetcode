@@ -1,6 +1,5 @@
 class Solution {
     public String frequencySort(String s) {
-
         HashMap<Character, Integer> hm = new HashMap<>();
 
         for (int i = 0; i < s.length(); i++) {
@@ -8,17 +7,11 @@ class Solution {
             hm.put(ch, hm.getOrDefault(ch, 0) + 1);
         }
 
-        System.out.println(hm);   // DEBUG
-
         PriorityQueue<Frequency> pq =
             new PriorityQueue<>((a, b) -> Integer.compare(b.val, a.val));
 
         for (char ch : hm.keySet()) {
-            int frequency = hm.get(ch);
-
-            System.out.println(ch + " " + frequency);  // DEBUG
-
-            Frequency temp = new Frequency(ch, frequency);
+            Frequency temp = new Frequency(ch, hm.get(ch));
             pq.add(temp);
         }
 
@@ -26,8 +19,6 @@ class Solution {
 
         while (!pq.isEmpty()) {
             Frequency top = pq.poll();
-
-            System.out.println("PQ: " + top.key + " " + top.val); // DEBUG
 
             for (int i = 0; i < top.val; i++) {
                 ans.append(top.key);
