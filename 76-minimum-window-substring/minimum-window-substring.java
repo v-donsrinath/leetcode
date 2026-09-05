@@ -4,18 +4,21 @@ class Solution {
         for(char c:t.toCharArray()){
             tMap.put(c,tMap.getOrDefault(c,0)+1);
         }
-        Map<Character,Integer> sMap=new HashMap<>();
-        String ans="";
+        
+        
         int l=0;
         int count =t.length();
         int minlen=Integer.MAX_VALUE;
+        String ans="";
 
         for(int r=0;r<s.length();r++){
             char ch=s.charAt(r);
-            sMap.put(ch,sMap.getOrDefault(ch,0)+1);
-            
-            if(tMap.containsKey(ch) && sMap.get(ch)<=tMap.get(ch)){
-                count--;
+           
+            if(tMap.containsKey(ch)){
+                if(tMap.get(ch)>0){
+                    count--;
+                }
+                tMap.put(ch,tMap.get(ch)-1);//frequency is decresed in both case ony count changes for special case
             }
 
             while(count==0){
@@ -24,15 +27,17 @@ class Solution {
                     ans=s.substring(l,r+1);
                 }
                 char leftchar=s.charAt(l);
-                sMap.put(leftchar,sMap.get(leftchar)-1); //decreasing the frequency
-                
-                if(tMap.containsKey(leftchar) && sMap.get(leftchar)<tMap.get(leftchar)){
-                    count++;
+                if(tMap.containsKey(leftchar)){
+                    tMap.put(leftchar,tMap.get(leftchar)+1);
+                    if(tMap.get(leftchar)>0){
+                        count++;
+                    }
                 }
                 l++;
             }
         }
         return ans;
     }
-
 }
+                
+              
